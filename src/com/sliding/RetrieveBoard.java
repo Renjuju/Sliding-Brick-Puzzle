@@ -44,4 +44,5 @@ public class RetrieveBoard {
     public int[][] getBoard() {
         return board;
     }
+
 }
