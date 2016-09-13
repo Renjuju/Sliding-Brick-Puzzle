@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class Board {
 
     private int[][] board;
+    private BoardMovement movement;
 
     public Board() {
         RetrieveBoard boardFetch = null;
@@ -22,12 +23,14 @@ public class Board {
 
         b2[3][3] = 14;
         printBoard(board);
-        
+
         if(isWinner(board)) {
             System.out.println("Winner!");
         } else {
             System.out.println("Keep playing!");
         }
+        movement = new BoardMovement(board);
+        movement.move(2, "up");
     }
 
     //Deep copy
