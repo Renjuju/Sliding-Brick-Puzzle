@@ -1,6 +1,7 @@
 package com.sliding;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by renju on 9/13/16.
@@ -17,21 +18,30 @@ public class Board {
             e.printStackTrace();
         }
         board = boardFetch.getBoard();
-        printBoard(board);
+        int b2[][] = getClone(board);
 
+        b2[3][3] = 14;
+        printBoard(board);
     }
 
-    public int[][] getClone() {
-        return null;
+    //Deep copy
+    public int[][] getClone(int[][] board) {
+        int[][] result = new int[board.length][];
+        for(int i = 0; i < board.length; i++) {
+            result[i] = Arrays.copyOf(board[i], board[i].length);
+        }
+        return result;
     }
 
     public void printBoard(int[][] board) {
+        System.out.println("-----------------");
         for(int x = 0; x < board.length; x++) {
             for(int i = 0; i < board[x].length; i++) {
                 System.out.print(board[x][i] + "  ");
             }
             System.out.println();
         }
+        System.out.println("-----------------");
     }
 
 }
