@@ -22,6 +22,12 @@ public class Board {
 
         b2[3][3] = 14;
         printBoard(board);
+        
+        if(isWinner(board)) {
+            System.out.println("Winner!");
+        } else {
+            System.out.println("Keep playing!");
+        }
     }
 
     //Deep copy
@@ -42,6 +48,17 @@ public class Board {
             System.out.println();
         }
         System.out.println("-----------------");
+    }
+
+    public boolean isWinner(int [][] board) {
+        for(int x = 0; x < board.length; x++) {
+            for(int i =0; i < board[x].length; i++) {
+                if(board[x][i] == -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
