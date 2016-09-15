@@ -8,7 +8,9 @@ import java.io.IOException;
 public class Menu {
 
     public void play() {
-            Board board = new Board();
+            String directory="levels/";
+            String fileLocation = "SBP-level3.txt";
+            Board board = new Board(directory + fileLocation);
     }
 
 }

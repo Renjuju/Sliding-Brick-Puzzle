@@ -11,10 +11,10 @@ public class Board {
     private int[][] board;
     private BoardMovement movement;
 
-    public Board() {
+    public Board(String file) {
         RetrieveBoard boardFetch = null;
         try {
-            boardFetch = new RetrieveBoard("levels/SBP-level0.txt");
+            boardFetch = new RetrieveBoard(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
