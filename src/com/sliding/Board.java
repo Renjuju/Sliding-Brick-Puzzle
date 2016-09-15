@@ -29,7 +29,7 @@ public class Board {
         movement = new BoardMovement(board);
         movement.move(2, "up");
     }
-    
+
     public int[][] getClone(int[][] board) {
         int[][] result = new int[board.length][];
         for(int i = 0; i < board.length; i++) {
