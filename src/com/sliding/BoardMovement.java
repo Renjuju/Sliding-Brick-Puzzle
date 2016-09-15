@@ -9,7 +9,7 @@ public class BoardMovement {
     private final int MASTER_BLOCK = 2;
     private final int EMPTY_SPACE = 0;
     private final int WINNER_SPACE = -1;
-
+    private final int WALL = 1;
     public BoardMovement(int[][] board) {
         this.board = board;
     }
@@ -17,7 +17,6 @@ public class BoardMovement {
     public int[][] move(int block, String movement) {
         switch (movement) {
             case "up":
-                System.out.println("up");
                 HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
                 Iterator iterator = hashMap.entrySet().iterator();
                 while (iterator.hasNext()) {
@@ -77,6 +76,7 @@ public class BoardMovement {
         return hashMap;
     }
 
+//    O(1)
     private int getFirstKey(HashMap<Integer, ArrayList<Integer>> hashMap) {
         Iterator iterator = hashMap.entrySet().iterator();
 
@@ -84,6 +84,16 @@ public class BoardMovement {
         System.out.println("Row: " + pair.getKey() + ", Columns: " + pair.getValue());
 
         return Integer.parseInt(pair.getKey().toString());
+    }
+//    O(n)
+    private int getLastKey(HashMap<Integer, ArrayList<Integer>> hashMap) {
+        Iterator iterator = hashMap.entrySet().iterator();
+        int lastKey = 0;
+        while (iterator.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) iterator.next();
+            lastKey = Integer.parseInt(pair.getKey().toString());
+        }
+        return lastKey;
     }
 
     private int[] toArray(HashMap<Integer, ArrayList<Integer>> hashMap, int key) {
@@ -95,5 +105,45 @@ public class BoardMovement {
             array[i] = Integer.parseInt(hashArray[i].toString());
         }
         return array;
+    }
+
+    //    it returns a list of all the moves the piece can perform
+    public void getMoves(int board[][], int block) {
+        //finds the blocks
+        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
+
+        int key = getFirstKey(hashMap);
+        int lastKey = getLastKey(hashMap);
+        int[] values = toArray(hashMap, key); //columns
+
+        HashMap<Integer, Integer> possibleMoves = new HashMap<>();
+        // if master block..checking for up
+        boolean up = true;
+        boolean down = true;
+        boolean left = true;
+        boolean right = true;
+        if (block == MASTER_BLOCK) {
+            for(int i = 0; i < values.length; i++) {
+                if (!(board[key - 1][values[i]] == EMPTY_SPACE || board[key - 1][values[i]] == WINNER_SPACE)) {
+                    up = false;
+                }
+                // checking for down
+                if (!(board[lastKey + 1][values[i]] == EMPTY_SPACE || board[lastKey + 1][values[i]] == WINNER_SPACE)) {
+                    down = false;
+                }
+            }
+        } else {
+            for(int i = 0; i < values.length; i++) {
+                if (!(board[key - 1][values[i]] == EMPTY_SPACE)) {
+                    up = false;
+                }
+                // checking for down
+                if (!(board[lastKey + 1][values[i]] == EMPTY_SPACE)) {
+                    down = false;
+                }
+            }
+        }
+
+        System.out.println("Up: " + up + ", Down: " + down);
     }
 }

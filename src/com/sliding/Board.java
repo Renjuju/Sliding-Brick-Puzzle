@@ -27,7 +27,7 @@ public class Board {
             System.out.println("Keep playing!");
         }
         movement = new BoardMovement(board);
-        movement.move(2, "up");
+        movement.getMoves(board, 2);
     }
 
     public int[][] getClone(int[][] board) {
