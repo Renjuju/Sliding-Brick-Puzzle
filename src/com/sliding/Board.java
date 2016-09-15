@@ -3,9 +3,6 @@ package com.sliding;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * Created by renju on 9/13/16.
- */
 public class Board {
 
     private int[][] board;
@@ -32,8 +29,7 @@ public class Board {
         movement = new BoardMovement(board);
         movement.move(2, "up");
     }
-
-    //Deep copy
+    
     public int[][] getClone(int[][] board) {
         int[][] result = new int[board.length][];
         for(int i = 0; i < board.length; i++) {

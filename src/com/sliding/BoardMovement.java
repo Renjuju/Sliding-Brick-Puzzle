@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by renju on 9/13/16.
- */
 public class BoardMovement {
     private int[][] board;
 
