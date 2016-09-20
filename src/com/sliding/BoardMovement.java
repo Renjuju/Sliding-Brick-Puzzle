@@ -13,6 +13,7 @@ public class BoardMovement {
     private final int EMPTY_SPACE = 0;
     private final int WINNER_SPACE = -1;
     private final int WALL = 1;
+
     public BoardMovement(int[][] board) {
         this.board = board;
     }
@@ -26,7 +27,10 @@ public class BoardMovement {
                     HashMap.Entry pair = (HashMap.Entry) iterator.next();
                     System.out.println("Row: " + pair.getKey() + ", Columns: " + pair.getValue());
                 }
-                int key = getFirstKey(hashMap);
+
+                ArrayList<Integer> keys = getKeys(hashMap);
+
+                int key = keys.get(0);
                 int[] values = toArray(hashMap, key); //columns
 
                 // if master block
@@ -77,26 +81,6 @@ public class BoardMovement {
             }
         }
         return hashMap;
-    }
-
-//    O(1)
-    private int getFirstKey(HashMap<Integer, ArrayList<Integer>> hashMap) {
-        Iterator iterator = hashMap.entrySet().iterator();
-
-        HashMap.Entry pair = (HashMap.Entry) iterator.next();
-        System.out.println("Row: " + pair.getKey() + ", Columns: " + pair.getValue());
-
-        return Integer.parseInt(pair.getKey().toString());
-    }
-//    O(n)
-    private int getLastKey(HashMap<Integer, ArrayList<Integer>> hashMap) {
-        Iterator iterator = hashMap.entrySet().iterator();
-        int lastKey = 0;
-        while (iterator.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) iterator.next();
-            lastKey = Integer.parseInt(pair.getKey().toString());
-        }
-        return lastKey;
     }
 
     private ArrayList<Integer> getKeys(HashMap<Integer, ArrayList<Integer>> hashMap) {
