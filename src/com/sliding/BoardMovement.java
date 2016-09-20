@@ -1,5 +1,8 @@
 package com.sliding;
 
+import org.omg.CORBA.INTERNAL;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -96,6 +99,19 @@ public class BoardMovement {
         return lastKey;
     }
 
+    private ArrayList<Integer> getKeys(HashMap<Integer, ArrayList<Integer>> hashMap) {
+        ArrayList<Integer> keys = new ArrayList<>();
+
+        Iterator iterator = hashMap.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) iterator.next();
+            keys.add(Integer.parseInt(pair.getKey().toString()));
+        }
+
+        return keys;
+    }
+
     private int[] toArray(HashMap<Integer, ArrayList<Integer>> hashMap, int key) {
         Object[] hashArray = hashMap.get(key).toArray();
         int length = hashArray.length;
@@ -107,24 +123,29 @@ public class BoardMovement {
         return array;
     }
 
-    //    it returns a list of all the moves the piece can perform
+    //Write a function that given a state and a piece, it returns a list of all the moves the piece can perform
     public void getMoves(int board[][], int block) {
         //finds the blocks
         HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
 
-        int key = getFirstKey(hashMap);
-        int lastKey = getLastKey(hashMap);
-        int[] values = toArray(hashMap, key); //columns
+        ArrayList<Integer> keys = getKeys(hashMap);
+
+        int firstKey = keys.get(0);
+        int lastKey = keys.get(keys.size()-1);
+        int[] values = toArray(hashMap, firstKey); //columns
 
         HashMap<Integer, Integer> possibleMoves = new HashMap<>();
-        // if master block..checking for up
+
+        // by default, they're all true possible moves unless proven otherwise
         boolean up = true;
         boolean down = true;
         boolean left = true;
         boolean right = true;
+
         if (block == MASTER_BLOCK) {
             for(int i = 0; i < values.length; i++) {
-                if (!(board[key - 1][values[i]] == EMPTY_SPACE || board[key - 1][values[i]] == WINNER_SPACE)) {
+                // if master block..checking for up
+                if (!(board[firstKey - 1][values[i]] == EMPTY_SPACE || board[firstKey - 1][values[i]] == WINNER_SPACE)) {
                     up = false;
                 }
                 // checking for down
@@ -132,9 +153,23 @@ public class BoardMovement {
                     down = false;
                 }
             }
+
+            for(int key : keys) {
+                // checking for left
+                if(!(board[key][values[0] - 1] == EMPTY_SPACE || board[key][values[0] - 1] == WINNER_SPACE)) {
+                    left = false;
+                }
+
+                // checking for left
+                if(!(board[key][values[values.length-1] + 1] == EMPTY_SPACE || board[key][values[values.length-1] + 1] == WINNER_SPACE)) {
+                    right = false;
+                }
+            }
+
         } else {
+            // normal block checking for up
             for(int i = 0; i < values.length; i++) {
-                if (!(board[key - 1][values[i]] == EMPTY_SPACE)) {
+                if (!(board[firstKey - 1][values[i]] == EMPTY_SPACE)) {
                     up = false;
                 }
                 // checking for down
@@ -142,8 +177,21 @@ public class BoardMovement {
                     down = false;
                 }
             }
+
+            for(int key : keys) {
+                // checking for left
+                if(!(board[key][values[0] - 1] == EMPTY_SPACE)) {
+                    left = false;
+                }
+
+                // checking for left
+                if(!(board[key][values[values.length-1] + 1] == EMPTY_SPACE)) {
+                    right = false;
+                }
+            }
         }
 
         System.out.println("Up: " + up + ", Down: " + down);
+        System.out.println("Left: " + left + ", Right: " + right);
     }
 }
