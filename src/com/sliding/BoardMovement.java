@@ -179,6 +179,16 @@ public class BoardMovement {
         availableMoves.put("left", left);
         availableMoves.put("right", right);
 
+        Iterator iterator = availableMoves.entrySet().iterator();
+
+        while(iterator.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) iterator.next();
+            System.out.println("We " +
+                    ((pair.getValue().toString().equals("true")) ? "can go "
+                            + pair.getKey().toString() : "cannot go "
+                            + pair.getKey().toString()));
+        }
+
         return availableMoves;
     }
 }

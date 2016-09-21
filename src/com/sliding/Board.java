@@ -27,8 +27,16 @@ public class Board {
             System.out.println("Keep playing!");
         }
         movement = new BoardMovement(board);
-//        movement.getMoves(board, 8);
-        movement.applyMove(8, "up");
+    }
+
+    public void applyMove(int block, String direction) {
+        movement.applyMove(block, direction);
+        printBoard(board);
+        if(isWinner(board)) {
+            System.out.println("Winner!");
+        } else {
+            System.out.println("Keep playing!");
+        }
     }
 
     public int[][] getClone(int[][] board) {
