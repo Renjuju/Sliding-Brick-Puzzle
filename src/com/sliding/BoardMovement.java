@@ -1,8 +1,5 @@
 package com.sliding;
 
-import org.omg.CORBA.INTERNAL;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +9,6 @@ public class BoardMovement {
     private final int MASTER_BLOCK = 2;
     private final int EMPTY_SPACE = 0;
     private final int WINNER_SPACE = -1;
-    private final int WALL = 1;
 
     public BoardMovement(int[][] board) {
         this.board = board;
@@ -123,8 +119,6 @@ public class BoardMovement {
         int lastKey = keys.get(keys.size()-1);
         int[] values = toArray(hashMap, firstKey); //columns
 
-        HashMap<Integer, Integer> possibleMoves = new HashMap<>();
-
         // by default, they're all true possible moves unless proven otherwise
         boolean up = true;
         boolean down = true;
@@ -186,7 +180,5 @@ public class BoardMovement {
         availableMoves.put("right", right);
 
         return availableMoves;
-//        System.out.println("Up: " + up + ", Down: " + down);
-//        System.out.println("Left: " + left + ", Right: " + right);
     }
 }
