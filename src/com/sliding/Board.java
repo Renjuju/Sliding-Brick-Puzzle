@@ -56,14 +56,14 @@ public class Board {
     }
 
     public void printBoard(int[][] board) {
-        System.out.println("-----------------");
         for(int x = 0; x < board.length; x++) {
             for(int i = 0; i < board[x].length; i++) {
-                System.out.print(board[x][i] + "  ");
+                System.out.printf("%4d", board[x][i]);
             }
             System.out.println();
         }
-        System.out.println("-----------------");
+        Arrays.deepToString(board);
+        System.out.println((char)27 + "[31m------------------------------" + (char)27 + "[0m");
     }
 
     public boolean isWinner(int [][] board) {
