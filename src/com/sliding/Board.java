@@ -7,6 +7,9 @@ public class Board {
 
     private int[][] board;
     private BoardMovement movement;
+    public Board() {
+
+    }
 
     public Board(String file) {
         RetrieveBoard boardFetch = null;
@@ -23,20 +26,25 @@ public class Board {
 
         if(isWinner(board)) {
             System.out.println("Winner!");
-        } else {
-            System.out.println("Keep playing!");
         }
-        movement = new BoardMovement(board);
+
+        movement = new BoardMovement();
     }
 
     public void applyMove(int block, String direction) {
-        movement.applyMove(block, direction);
+        movement.move(block, direction, board);
         printBoard(board);
         if(isWinner(board)) {
             System.out.println("Winner!");
         } else {
             System.out.println("Keep playing!");
         }
+    }
+
+    public int[][] applyMoveCloning(int block, String direction) {
+        int[][] newBoard = getClone(board);
+        movement.move(block, direction, newBoard);
+        return newBoard;
     }
 
     public int[][] getClone(int[][] board) {
@@ -62,6 +70,27 @@ public class Board {
         for(int x = 0; x < board.length; x++) {
             for(int i =0; i < board[x].length; i++) {
                 if(board[x][i] == -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // State comparison function
+    public boolean isIdentical(int[][] board1, int[][] board2 ) {
+        // Checks for sizes
+        if(board1.length != board2.length) {
+            return false;
+        }
+
+        if(board1[board1.length-1].length != board2[board2.length-1].length) {
+            return false;
+        }
+
+        for(int i = 0; i < board1.length; i++) {
+            for(int j = 0; j < board1[i].length; j++) {
+                if(board1[i][j] != board[i][j]) {
                     return false;
                 }
             }
