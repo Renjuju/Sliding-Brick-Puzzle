@@ -1,7 +1,10 @@
 package com.sliding;
 
+import com.sun.org.apache.xml.internal.serializer.utils.SystemIDResolver;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.*;
 
 public class Board {
 
@@ -129,4 +132,55 @@ public class Board {
         return true;
     }
 
+    public void randomWalks(int steps) {
+        int count = 0;
+        while(count < steps) {
+            randomMove();
+            normalizeState();
+            count++;
+            if(isWinner(board)) {
+                System.out.println("Winner!");
+                System.out.println(count + " moves");
+                printBoard(board);
+                break;
+            }
+        }
+    }
+
+    public void randomMove() {
+        ArrayList<Integer> blockList = new ArrayList<>();
+        ArrayList<String>  directionList = new ArrayList<>();
+
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if(board[i][j] != 1 && board[i][j] != -1 && board[i][j] != 0) {
+                    if(blockList.indexOf(board[i][j]) == -1) {
+                        blockList.add(board[i][j]);
+                    }
+                }
+            }
+        }
+
+        Random random = new Random();
+        int val = random.nextInt(blockList.size()) + 1;
+        int block = blockList.get(random.nextInt(blockList.size()));
+
+        HashMap<String, Boolean> directionMap = movement.getMoves(board, block);
+
+        Iterator iterator = directionMap.entrySet().iterator();
+        while(iterator.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) iterator.next();
+            if( (Boolean) pair.getValue() ) {
+                directionList.add(pair.getKey().toString());
+            }
+
+        }
+
+        if(directionList.size() > 0) {
+            String direction = directionList.get(random.nextInt(directionList.size()));
+            System.out.println(block + ": " + direction);
+            movement.move(block, direction, board);
+//            printBoard(board);
+        }
+    }
 }

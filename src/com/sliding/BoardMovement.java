@@ -80,10 +80,11 @@ public class BoardMovement extends Board {
                     System.out.println("Unable to move right");
                     break;
                 }
+
                 while (iterator.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) iterator.next();
                     int tempKey = Integer.parseInt(pair.getKey().toString());
-                    for (int i = 0; i < values.length; i++) {
+                    for (int i = values.length - 1; i >= 0; i--) {
                         board[tempKey][values[i] + 1] = block;
                         board[tempKey][values[i]] = 0;
                     }
