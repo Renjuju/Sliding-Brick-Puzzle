@@ -1,8 +1,6 @@
 package com.sliding;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class BoardMovement {
     private int[][] board;
@@ -17,6 +15,12 @@ public class BoardMovement {
     public int[][] applyMove(int block, String movement) {
 
         HashMap<String, Boolean> availableMoves = getMoves(board, block);
+        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
+        ArrayList<Integer> keys = getKeys(hashMap);
+
+        int key = keys.get(0);
+        int[] values = toArray(hashMap, key); //columns
+        Iterator iterator = hashMap.entrySet().iterator();
 
 
         switch (movement) {
@@ -25,19 +29,64 @@ public class BoardMovement {
                     System.out.println("Unable to move up");
                     break;
                 }
-                up(block, board);
+                while (iterator.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) iterator.next();
+                    int tempKey = Integer.parseInt(pair.getKey().toString());
+                    for (int i = 0; i < values.length; i++) {
+                        board[tempKey - 1][values[i]] = block;
+                        board[tempKey][values[i]] = 0;
+                    }
+                }
                 break;
             case "down":
                 if(!availableMoves.get("down")) {
-                    System.out.println("Unable to move up");
+                    System.out.println("Unable to move down");
                     break;
+                }
+                ArrayList<Integer> keyList = new ArrayList<>();
+
+                while(iterator.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) iterator.next();
+                    int tempKey = Integer.parseInt(pair.getKey().toString());
+                    keyList.add(tempKey);
+                }
+
+                Collections.reverse(keyList);
+
+                for(int aKey : keyList) {
+                    for (int i = 0; i < values.length; i++) {
+                        board[aKey + 1][values[i]] = block;
+                        board[aKey][values[i]] = 0;
+                    }
                 }
                 break;
             case "left":
-                System.out.println("down");
+                if(!availableMoves.get("left")) {
+                    System.out.println("Unable to move left");
+                    break;
+                }
+                while (iterator.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) iterator.next();
+                    int tempKey = Integer.parseInt(pair.getKey().toString());
+                    for (int i = 0; i < values.length; i++) {
+                        board[tempKey][values[i] - 1] = block;
+                        board[tempKey][values[i]] = 0;
+                    }
+                }
                 break;
             case "right":
-                System.out.println("down");
+                if(!availableMoves.get("right")) {
+                    System.out.println("Unable to move right");
+                    break;
+                }
+                while (iterator.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) iterator.next();
+                    int tempKey = Integer.parseInt(pair.getKey().toString());
+                    for (int i = 0; i < values.length; i++) {
+                        board[tempKey][values[i] + 1] = block;
+                        board[tempKey][values[i]] = 0;
+                    }
+                }
                 break;
             default:
                 System.out.println("Move names are: up, down, left, right");
@@ -58,28 +107,6 @@ public class BoardMovement {
             }
         }
         return hashMap;
-    }
-
-    private void up(int block, int[][] board) {
-        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
-        ArrayList<Integer> keys = getKeys(hashMap);
-
-        int key = keys.get(0);
-        int[] values = toArray(hashMap, key); //columns
-        Iterator iterator = hashMap.entrySet().iterator();
-
-        while (iterator.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) iterator.next();
-            int tempKey = Integer.parseInt(pair.getKey().toString());
-            for (int i = 0; i < values.length; i++) {
-                board[tempKey - 1][values[i]] = block;
-                board[tempKey][values[i]] = 0;
-            }
-        }
-    }
-
-    private void down(int block, int[][] board) {
-
     }
 
     private ArrayList<Integer> getKeys(HashMap<Integer, ArrayList<Integer>> hashMap) {
@@ -182,13 +209,13 @@ public class BoardMovement {
 
         Iterator iterator = availableMoves.entrySet().iterator();
 
-        while(iterator.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) iterator.next();
-            System.out.println("We " +
-                    ((pair.getValue().toString().equals("true")) ? "can go "
-                            + pair.getKey().toString() : "cannot go "
-                            + pair.getKey().toString()));
-        }
+//        while(iterator.hasNext()) {
+//            HashMap.Entry pair = (HashMap.Entry) iterator.next();
+//            System.out.println("We " +
+//                    ((pair.getValue().toString().equals("true")) ? "can go "
+//                            + pair.getKey().toString() : "cannot go "
+//                            + pair.getKey().toString()));
+//        }
 
         return availableMoves;
     }
