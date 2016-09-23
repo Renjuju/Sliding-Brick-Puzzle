@@ -2,20 +2,21 @@ package com.sliding;
 
 import java.util.*;
 
-public class BoardMovement {
+public class BoardMovement extends Board {
     private int[][] board;
     private final int MASTER_BLOCK = 2;
     private final int EMPTY_SPACE = 0;
     private final int WINNER_SPACE = -1;
 
-    public BoardMovement(int[][] board) {
-        this.board = board;
-    }
+//    public BoardMovement(int[][] board) {
+//        this.board = board;
+//    }
 
-    public int[][] applyMove(int block, String movement) {
+    // Movement using switch case
+    public int[][] move(int block, String movement, int[][] board) {
 
         HashMap<String, Boolean> availableMoves = getMoves(board, block);
-        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
+        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block, board);
         ArrayList<Integer> keys = getKeys(hashMap);
 
         int key = keys.get(0);
@@ -94,7 +95,8 @@ public class BoardMovement {
         return board;
     }
 
-    private HashMap<Integer, ArrayList<Integer>> findBlock(int block) {
+    // Uses rows as keys and columns as an ArrayList in a HashMap
+    private HashMap<Integer, ArrayList<Integer>> findBlock(int block, int board[][]) {
         HashMap<Integer, ArrayList<Integer>> hashMap = new HashMap<>();
 
         for (int i = 0; i < board.length; i++) {
@@ -109,6 +111,7 @@ public class BoardMovement {
         return hashMap;
     }
 
+    // Gets all the keys (rows)
     private ArrayList<Integer> getKeys(HashMap<Integer, ArrayList<Integer>> hashMap) {
         ArrayList<Integer> keys = new ArrayList<>();
 
@@ -122,6 +125,7 @@ public class BoardMovement {
         return keys;
     }
 
+    //Converts ArrayList in a HashMap to an array
     private int[] toArray(HashMap<Integer, ArrayList<Integer>> hashMap, int key) {
         Object[] hashArray = hashMap.get(key).toArray();
         int length = hashArray.length;
@@ -139,7 +143,7 @@ public class BoardMovement {
         HashMap<String, Boolean> availableMoves = new HashMap<>();
 
         //finds the blocks
-        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block);
+        HashMap<Integer, ArrayList<Integer>> hashMap = findBlock(block, board);
 
         ArrayList<Integer> keys = getKeys(hashMap);
 
