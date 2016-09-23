@@ -77,6 +77,37 @@ public class Board {
         return true;
     }
 
+    public void normalizeState() {
+        int [][] matrix = board;
+
+        int nextIdx = 3;
+        for(int i = 0;i < matrix.length;i++) {
+            for(int j = 0;j < matrix[i].length;j++) {
+                if (matrix[i][j]==nextIdx) {
+                    nextIdx++;
+                } else if (matrix[i][j] > nextIdx) {
+                    swapIdx(nextIdx, matrix[i][j]);
+                    nextIdx++;
+                }
+            }
+        }
+        printBoard(matrix);
+    }
+
+    private void swapIdx(int idx1, int idx2) {
+        int[][] matrix = board;
+
+        for(int i = 0;i < matrix.length;i++) {
+            for(int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == idx1) {
+                    matrix[i][j] = idx2;
+                } else if (matrix[i][j] == idx2) {
+                    matrix[i][j]=idx1;
+                }
+            }
+        }
+    }
+
     // State comparison function
     public boolean isIdentical(int[][] board1, int[][] board2 ) {
         // Checks for sizes
