@@ -1,8 +1,5 @@
 package com.sliding;
 
-import com.sun.org.apache.xml.internal.serializer.utils.SystemIDResolver;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -94,7 +91,6 @@ public class Board {
                 }
             }
         }
-        printBoard(matrix);
     }
 
     private void swapIdx(int idx1, int idx2) {
@@ -132,12 +128,18 @@ public class Board {
         return true;
     }
 
-    public void randomWalks(int steps) {
+    public void randomWalks(int steps, boolean isPrint) {
         int count = 0;
         while(count < steps) {
             randomMove();
-            normalizeState();
+//            normalizeState();
+//            messing up board state, bug
             count++;
+
+            if(isPrint) {
+                printBoard(board);
+            }
+
             if(isWinner(board)) {
                 System.out.println("Winner!");
                 System.out.println(count + " moves");
@@ -178,7 +180,7 @@ public class Board {
 
         if(directionList.size() > 0) {
             String direction = directionList.get(random.nextInt(directionList.size()));
-            System.out.println(block + ": " + direction);
+//            System.out.println(block + ": " + direction);
             movement.move(block, direction, board);
 //            printBoard(board);
         }
