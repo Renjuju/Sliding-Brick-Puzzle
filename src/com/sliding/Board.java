@@ -164,7 +164,6 @@ public class Board {
         }
 
         Random random = new Random();
-        int val = random.nextInt(blockList.size()) + 1;
         int block = blockList.get(random.nextInt(blockList.size()));
 
         HashMap<String, Boolean> directionMap = movement.getMoves(board, block);
