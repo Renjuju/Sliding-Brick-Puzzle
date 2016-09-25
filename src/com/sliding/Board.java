@@ -131,14 +131,14 @@ public class Board {
     public void randomWalks(int steps, boolean isPrint) {
         int count = 0;
         while(count < steps) {
-            randomMove();
-//            normalizeState();
-//            messing up board state, bug
-            count++;
-
-            if(isPrint) {
-                printBoard(board);
+            if(randomMove()) {
+                count++;
+                if(isPrint) {
+                    printBoard(board);
+                }
             }
+
+            normalizeState();
 
             if(isWinner(board)) {
                 System.out.println("Winner!");
@@ -149,7 +149,7 @@ public class Board {
         }
     }
 
-    public void randomMove() {
+    public boolean randomMove() {
         ArrayList<Integer> blockList = new ArrayList<>();
         ArrayList<String>  directionList = new ArrayList<>();
 
@@ -180,9 +180,15 @@ public class Board {
 
         if(directionList.size() > 0) {
             String direction = directionList.get(random.nextInt(directionList.size()));
-//            System.out.println(block + ": " + direction);
+            System.out.println(block + ": " + direction);
             movement.move(block, direction, board);
 //            printBoard(board);
+            return true;
         }
+        return false;
+    }
+
+    public int[][] getBoard() {
+        return board;
     }
 }
