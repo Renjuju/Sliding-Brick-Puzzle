@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private String file;
+
+    public Menu(String file) {
+        this.file = file;
+    }
+
     Scanner in = new Scanner(System.in);
     public void play() {
 
-
-        String fileLocation = "SBP-level3.txt";
-        String directory="levels/";
-        Board board = new Board(directory + fileLocation);
+        Board board = new Board(file);
 
         String options = "0";
         while(!options.equals("4")) {
@@ -18,6 +21,7 @@ public class Menu {
             options = in.nextLine();
 
             if(board.isWinner(board.getBoard())) {
+                System.out.println("Winner, menu stopping");
                 break;
             }
 
@@ -31,7 +35,13 @@ public class Menu {
                 case "3" :
                     System.out.println("How many moves to complete?");
                     String steps = in.nextLine();
-                    board.randomWalks(Integer.parseInt(steps), true);
+                    try{
+                        board.randomWalks(Integer.parseInt(steps), true);
+                    } catch(Exception e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Invalid input");
+                    }
+                    break;
                 case "4":
                     System.out.println("Have a great day");
                     break;

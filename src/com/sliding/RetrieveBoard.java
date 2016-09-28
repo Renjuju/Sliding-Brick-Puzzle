@@ -8,6 +8,7 @@ public class RetrieveBoard {
 
     private int board[][];
 
+    // boilerplate code for getting the file
     public RetrieveBoard (String file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         try {

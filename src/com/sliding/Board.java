@@ -11,7 +11,9 @@ public class Board {
 
     }
 
+    // constructor
     public Board(String file) {
+        // File fetching class
         RetrieveBoard boardFetch = null;
         try {
             boardFetch = new RetrieveBoard(file);
@@ -31,6 +33,7 @@ public class Board {
         movement = new BoardMovement();
     }
 
+    // applies Move, not used for now, using separate method
     public void applyMove(int block, String direction) {
         movement.move(block, direction, board);
         printBoard(board);
@@ -41,12 +44,14 @@ public class Board {
         }
     }
 
+    // Cloning moves, isn't used yet
     public int[][] applyMoveCloning(int block, String direction) {
         int[][] newBoard = getClone(board);
         movement.move(block, direction, newBoard);
         return newBoard;
     }
 
+    // clones
     public int[][] getClone(int[][] board) {
         int[][] result = new int[board.length][];
         for(int i = 0; i < board.length; i++) {
@@ -55,6 +60,7 @@ public class Board {
         return result;
     }
 
+    //    prints board, it uses color!
     public void printBoard(int[][] board) {
         for(int x = 0; x < board.length; x++) {
             for(int i = 0; i < board[x].length; i++) {
@@ -66,6 +72,7 @@ public class Board {
         System.out.println((char)27 + "[31m------------------------------" + (char)27 + "[0m");
     }
 
+    // checks for the winner
     public boolean isWinner(int [][] board) {
         for(int x = 0; x < board.length; x++) {
             for(int i =0; i < board[x].length; i++) {
@@ -77,8 +84,9 @@ public class Board {
         return true;
     }
 
+    // normalizes the state
     public void normalizeState() {
-        int [][] matrix = board;
+        int [][] matrix = getClone(board);
 
         int nextIdx = 3;
         for(int i = 0;i < matrix.length;i++) {
@@ -128,6 +136,7 @@ public class Board {
         return true;
     }
 
+    // option to print the random walks
     public void randomWalks(int steps, boolean isPrint) {
         int count = 0;
         while(count < steps) {
@@ -153,6 +162,7 @@ public class Board {
         ArrayList<Integer> blockList = new ArrayList<>();
         ArrayList<String>  directionList = new ArrayList<>();
 
+        // Gets list of viable blocks that can move
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 if(board[i][j] != 1 && board[i][j] != -1 && board[i][j] != 0) {
@@ -177,6 +187,7 @@ public class Board {
 
         }
 
+        // get random direction, then move the board
         if(directionList.size() > 0) {
             String direction = directionList.get(random.nextInt(directionList.size()));
             System.out.println(block + ": " + direction);

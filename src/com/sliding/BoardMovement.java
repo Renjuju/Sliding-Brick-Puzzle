@@ -3,14 +3,10 @@ package com.sliding;
 import java.util.*;
 
 public class BoardMovement extends Board {
-    private int[][] board;
+
     private final int MASTER_BLOCK = 2;
     private final int EMPTY_SPACE = 0;
     private final int WINNER_SPACE = -1;
-
-//    public BoardMovement(int[][] board) {
-//        this.board = board;
-//    }
 
     // Movement using switch case
     public int[][] move(int block, String movement, int[][] board) {
