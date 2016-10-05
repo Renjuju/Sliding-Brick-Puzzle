@@ -2,9 +2,6 @@ package com.sliding;
 
 import java.util.ArrayList;
 
-/**
- * Created by renju on 10/3/16.
- */
 public class Node {
 
     Node parent;
@@ -12,14 +9,17 @@ public class Node {
     String move;
     int block;
     int[][] board;
+    int depth;
 
     public Node(int[][] board) {
+        this.depth = 0;
         this.board = board;
         this.children = new ArrayList<>();
     }
 
     public Node(Node parent) {
         this.parent = parent;
+        this.depth = this.parent.depth + 1;
         this.children = new ArrayList<>();
     }
 
