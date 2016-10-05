@@ -16,7 +16,7 @@ public class Menu {
         Board board = new Board(file);
 
         String options = "0";
-        while(!options.equals("4")) {
+        while(!options.equals("7")) {
             printInstructions();
 
             if(board.isWinner(board.getBoard())) {
@@ -51,7 +51,17 @@ public class Menu {
 
                 case "4":
 
-                    System.out.println("Have a great day");
+                    System.out.println("Breadth first search");
+                    DepthFirstSearch search = new DepthFirstSearch();
+                    search.bfs();
+                    break;
+                case "5":
+
+                    System.out.println("Depth first search");
+                    break;
+                case "6":
+
+                    System.out.println("Depth limited search");
                     break;
 
                 default:
@@ -68,7 +78,9 @@ public class Menu {
         System.out.println("1: Random walks");
         System.out.println("2: Random walks with output -- there's a lot of output");
         System.out.println("3: Random walks where user sets N steps");
-        System.out.println("4: Quit");
+        System.out.println("4: Breadth first search");
+        System.out.println("5: Depth first search");
+        System.out.println("6: Depth limited search");
     }
 
 }

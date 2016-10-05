@@ -59,7 +59,7 @@ public class Board {
     }
 
     //    prints board, it uses color!
-    public void printBoard(int[][] board) {
+    public static void printBoard(int[][] board) {
         for(int x = 0; x < board.length; x++) {
             for(int i = 0; i < board[x].length; i++) {
                 System.out.printf("%4d", board[x][i]);

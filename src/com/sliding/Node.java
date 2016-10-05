@@ -6,10 +6,10 @@ public class Node {
 
     Node parent;
     ArrayList<Node> children;
-    String move;
     int block;
     int[][] board;
     int depth;
+    String move;
 
     public Node(int[][] board) {
         this.depth = 0;
@@ -37,6 +37,10 @@ public class Node {
 
     public void addChild(Node child) {
         this.children.add(child);
+    }
+
+    public void setMoves(String move) {
+        this.move = move;
     }
 
 }
