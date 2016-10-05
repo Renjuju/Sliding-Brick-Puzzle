@@ -55,10 +55,6 @@ public class DepthFirstSearch {
 
                     parent.addChild(child);
                 }
-//                System.out.println("We " +
-//                        ((pair.getValue().toString().equals("true")) ? "can go "
-//                                + pair.getKey().toString() : "cannot go "
-//                                + pair.getKey().toString()));
             }
 
         }
