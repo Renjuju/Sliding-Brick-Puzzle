@@ -27,6 +27,10 @@ public class Node {
         this.move = move;
     }
 
+    public void setBoard(int[][] board) {
+        this.board = board;
+    }
+
     public void setBlock(int block) {
         this.block = block;
     }
