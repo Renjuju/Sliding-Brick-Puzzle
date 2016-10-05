@@ -7,19 +7,32 @@ import java.util.ArrayList;
  */
 public class DepthFirstSearch {
 
-
+    BoardMovement boardMovement = new BoardMovement();
     Node root;
+    int[][] board;
 
-    public DepthFirstSearch(int board[][], BoardMovement boardMovement) {
-        ArrayList<Integer> blocks = boardMovement.getAllBlocks(board);
-        root = new Node(board);
-        for(int block : blocks) {
-            boardMovement.getMoves(board, block);
-        }
-    }
+//    public DepthFirstSearch(int board[][], BoardMovement boardMovement) {
+//        ArrayList<Integer> blocks = boardMovement.getAllBlocks(board);
+//        root = new Node(board);
+//        for(int block : blocks) {
+//            boardMovement.getMoves(board, block);
+//        }
+//    }
 
     public Node expand(Node parent) {
-        return new Node(root);
+        ArrayList<Integer> blocks = boardMovement.getAllBlocks(board);
+        ArrayList<Node> children = new ArrayList<>();
+
+        for(int block: blocks) {
+
+        }
+
+        return root;
+    }
+
+    public void bfs() {
+
+        expand(root);
     }
 
 }
