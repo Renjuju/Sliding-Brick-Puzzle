@@ -18,21 +18,27 @@ public class Menu {
         String options = "0";
         while(!options.equals("4")) {
             printInstructions();
-            options = in.nextLine();
 
             if(board.isWinner(board.getBoard())) {
                 System.out.println("Winner, menu stopping");
                 break;
             }
 
+            options = in.nextLine();
+
             switch(options) {
                 case "1" :
+
                     board.randomWalks(1000000, false);
                     break;
+
                 case "2" :
+
                     board.randomWalks(1000000, true);
                     break;
+
                 case "3" :
+
                     System.out.println("How many moves to complete?");
                     String steps = in.nextLine();
                     try{
@@ -42,9 +48,12 @@ public class Menu {
                         System.out.println("Invalid input");
                     }
                     break;
+
                 case "4":
+
                     System.out.println("Have a great day");
                     break;
+
                 default:
                     break;
 

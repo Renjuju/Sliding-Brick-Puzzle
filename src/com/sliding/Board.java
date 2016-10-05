@@ -21,9 +21,7 @@ public class Board {
             e.printStackTrace();
         }
         board = boardFetch.getBoard();
-        int b2[][] = getClone(board);
 
-        b2[3][3] = 14;
         printBoard(board);
 
         if(isWinner(board)) {

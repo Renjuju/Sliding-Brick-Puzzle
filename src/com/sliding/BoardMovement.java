@@ -1,5 +1,6 @@
 package com.sliding;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class BoardMovement extends Board {
@@ -106,6 +107,20 @@ public class BoardMovement extends Board {
             }
         }
         return hashMap;
+    }
+
+    public ArrayList<Integer> getAllBlocks(int board[][]) {
+        ArrayList<Integer> blocks = new ArrayList<>();
+        for(int i = 0; i < board.length; i++) {
+            for(int x = 0; x < board[i].length; x++) {
+                if(board[i][x] != 0 && board[i][x] != 1 && board[i][x] != -1) {
+                    if(blocks.indexOf(board[i][x]) == -1) {
+                        blocks.add(board[i][x]);
+                    }
+                }
+            }
+        }
+        return blocks;
     }
 
     // Gets all the keys (rows)
