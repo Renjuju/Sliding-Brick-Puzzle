@@ -76,7 +76,7 @@ public class Menu {
         System.out.println("Welcome to the Sliding Brick Puzzle Game");
         System.out.println("Please choose:");
         System.out.println("1: Random walks");
-        System.out.println("2: Random walks with output -- there's a lot of output");
+        System.out.println("2: Random walks with output");
         System.out.println("3: Random walks where user sets N steps");
         System.out.println("4: Breadth first search");
         System.out.println("5: Depth first search");
