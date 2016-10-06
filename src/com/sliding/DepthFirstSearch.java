@@ -11,6 +11,8 @@ public class DepthFirstSearch {
     BoardMovement boardMovement = new BoardMovement();
     Node root;
     int[][] board;
+    LinkedList<Node> graph = new LinkedList<>();
+    int counter = 0;
 
     public DepthFirstSearch() {
         RetrieveBoard boardFetch = null;
@@ -25,7 +27,6 @@ public class DepthFirstSearch {
     }
 
     public Node expand(Node parent) {
-
         ArrayList<Integer> blocks = boardMovement.getAllBlocks(board);
 
         HashMap<String, Boolean> availableMoves = new HashMap<>();
@@ -52,6 +53,9 @@ public class DepthFirstSearch {
                 }
             }
         }
+        if(parent.children.size() == 0 ) {
+            return parent;
+        }
         return parent;
     }
 
@@ -69,18 +73,11 @@ public class DepthFirstSearch {
             System.out.println();
         }
 
-//        Node x = expand(node.children.get(0));
-//        for(Node child : x.children) {
-//            System.out.println("[" + child.block + child.move + "]");
+//        System.out.println("Size of children: " + node.children.size());
+//        for(Node child : node.children) {
+//            System.out.println("Node: " + "[" + child.block + "," + child.move + "]");
+//
 //        }
-
-//        Node n = expand(node.children.get(1));
-        System.out.println("Size of children: " + node.children.size());
-        for(Node child : node.children) {
-//            System.out.println("Depth: " + child.depth);
-            System.out.println("Node: " + "[" + child.block + "," + child.move + "]");
-//            Board.printBoard(child.board);
-        }
     }
 
 }

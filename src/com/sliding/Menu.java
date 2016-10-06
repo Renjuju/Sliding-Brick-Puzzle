@@ -55,10 +55,12 @@ public class Menu {
                     DepthFirstSearch search = new DepthFirstSearch();
                     search.bfs();
                     break;
+
                 case "5":
 
                     System.out.println("Depth first search");
                     break;
+
                 case "6":
 
                     System.out.println("Depth limited search");
@@ -81,6 +83,7 @@ public class Menu {
         System.out.println("4: Breadth first search");
         System.out.println("5: Depth first search");
         System.out.println("6: Depth limited search");
+        System.out.println("7: Exit");
     }
 
 }
