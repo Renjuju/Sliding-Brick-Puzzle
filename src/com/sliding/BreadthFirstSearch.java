@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by renju on 10/4/16.
  */
-public class DepthFirstSearch {
+public class BreadthFirstSearch {
 
     BoardMovement boardMovement = new BoardMovement();
     Node root;
@@ -14,10 +14,10 @@ public class DepthFirstSearch {
     LinkedList<Node> graph = new LinkedList<>();
     int counter = 0;
 
-    public DepthFirstSearch() {
+    public BreadthFirstSearch() {
         RetrieveBoard boardFetch = null;
         try {
-            boardFetch = new RetrieveBoard("levels/SBP-level3.txt");
+            boardFetch = new RetrieveBoard("levels/SBP-level1.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,8 +42,15 @@ public class DepthFirstSearch {
 
             //We know the block and the possible move state so we add it to a child node
                     int[][] newBoard = boardMovement.getClone(parent.board);
+                    if(boardMovement.isWinner(parent.board)) {
+                        parent.isWinner(true);
+                        return parent;
+                    }
+
                     boardMovement.move(block, pair.getKey().toString(), newBoard);
                     Node child = new Node(parent);
+
+                    child.isWinner(boardMovement.isWinner(parent.board));
 
                     child.setBlock(block);
                     child.setBoard(newBoard);
@@ -53,17 +60,15 @@ public class DepthFirstSearch {
                 }
             }
         }
+
         if(parent.children.size() == 0 ) {
             return parent;
         }
+
         return parent;
     }
 
-    public void bfs() {
-        LinkedList<Node> linkedList = new LinkedList<>();
-
-        Node node = expand(root);
-
+    private void iterate(Node node) {
         for(Node n : node.children) {
             Node x = expand(n);
             System.out.println(n.block);
@@ -72,16 +77,54 @@ public class DepthFirstSearch {
             }
             System.out.println();
         }
+    }
+    public void bfs() {
+        LinkedList<Node> linkedList = new LinkedList<>();
 
-//        System.out.println("Size of children: " + node.children.size());
-//        for(Node child : node.children) {
-//            System.out.println("Node: " + "[" + child.block + "," + child.move + "]");
-//
-//        }
+        Node node = expand(root);
+
+
+            //add to list
+            Queue<Node> queue = new LinkedList<>();
+
+            for(Node child : node.children) {
+                queue.add(expand(child));
+            }
+
+            Node winner = null;
+            while(!queue.isEmpty()) {
+                Node root = queue.poll();
+                for(Node kid : root.children) {
+                    queue.add(expand(kid));
+                }
+
+                if(root.isWinner()) {
+                    System.out.println("Winning board!");
+                    winner = root;
+                    break;
+                }
+
+            }
+
+            Stack<String> winningStack = new Stack<>();
+            int completeBoard[][] = winner.board;
+            while(winner.depth > 0) {
+                String moves = "(" + winner.block + ", " + winner.move + ")";
+                winningStack.push(moves);
+                winner = winner.parent;
+            }
+
+            while(!winningStack.isEmpty()) {
+                System.out.println(winningStack.pop());
+            }
+
+            System.out.println();
+            boardMovement.printBoard(completeBoard);
     }
 
 }
 
+//From wikipedia
 //Breadth-First-Search(Graph, root):
 //        2
 //        3     for each node n in Graph:

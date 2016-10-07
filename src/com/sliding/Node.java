@@ -10,6 +10,7 @@ public class Node {
     int[][] board;
     int depth;
     String move;
+    boolean isWinner;
 
     public Node(int[][] board) {
         this.depth = 0;
@@ -41,6 +42,14 @@ public class Node {
 
     public void setMoves(String move) {
         this.move = move;
+    }
+
+    public void isWinner(boolean isWinner) {
+        this.isWinner = isWinner;
+    }
+
+    public boolean isWinner() {
+        return this.isWinner;
     }
 
 }

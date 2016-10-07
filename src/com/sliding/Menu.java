@@ -52,7 +52,7 @@ public class Menu {
                 case "4":
 
                     System.out.println("Breadth first search");
-                    DepthFirstSearch search = new DepthFirstSearch();
+                    BreadthFirstSearch search = new BreadthFirstSearch();
                     search.bfs();
                     break;
 
