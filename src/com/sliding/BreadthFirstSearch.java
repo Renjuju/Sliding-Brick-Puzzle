@@ -8,9 +8,7 @@ import java.util.*;
  */
 public class BreadthFirstSearch extends Search {
 
-
     LinkedList<Node> graph = new LinkedList<>();
-    int counter = 0;
 
     public BreadthFirstSearch() {
         super();
@@ -44,7 +42,7 @@ public class BreadthFirstSearch extends Search {
             }
 
             Stack<String> winningStack = new Stack<>();
-            int completeBoard[][] = winner.board;
+            int completeBoard[][] = winner != null ? winner.board : new int[0][];
             while(winner.depth > 0) {
                 String moves = "(" + winner.block + ", " + winner.move + ")";
                 winningStack.push(moves);
@@ -56,7 +54,7 @@ public class BreadthFirstSearch extends Search {
             }
 
             System.out.println();
-            boardMovement.printBoard(completeBoard);
+            Board.printBoard(completeBoard);
     }
 
 }

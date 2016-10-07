@@ -170,13 +170,13 @@ public class BoardMovement extends Board {
         boolean right = true;
 
         if (block == MASTER_BLOCK) {
-            for(int i = 0; i < values.length; i++) {
+            for (int value : values) {
                 // if master block..checking for up
-                if (!(board[firstKey - 1][values[i]] == EMPTY_SPACE || board[firstKey - 1][values[i]] == WINNER_SPACE)) {
+                if (!(board[firstKey - 1][value] == EMPTY_SPACE || board[firstKey - 1][value] == WINNER_SPACE)) {
                     up = false;
                 }
                 // checking for down
-                if (!(board[lastKey + 1][values[i]] == EMPTY_SPACE || board[lastKey + 1][values[i]] == WINNER_SPACE)) {
+                if (!(board[lastKey + 1][value] == EMPTY_SPACE || board[lastKey + 1][value] == WINNER_SPACE)) {
                     down = false;
                 }
             }
