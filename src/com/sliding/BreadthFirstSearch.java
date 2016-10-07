@@ -21,7 +21,6 @@ public class BreadthFirstSearch extends Search {
 
         Node node = expand(root);
 
-
             //add to list
             Queue<Node> queue = new LinkedList<>();
 
