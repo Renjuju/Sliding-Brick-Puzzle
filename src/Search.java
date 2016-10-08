@@ -13,7 +13,7 @@ public class Search {
     public Search() {
         RetrieveBoard boardFetch = null;
         try {
-            boardFetch = new RetrieveBoard("levels/SBP-bricks-level6.txt");
+            boardFetch = new RetrieveBoard("levels/SBP-level0.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,8 +34,8 @@ public class Search {
         ArrayList<Integer> blocks = boardMovement.getAllBlocks(parent.board);
 
         HashMap<String, Boolean> availableMoves = new HashMap<>();
-        System.out.println("Depth: " + parent.depth);
-        System.out.println("Parent block: " + parent.block);
+//        System.out.println("Depth: " + parent.depth);
+//        System.out.println("Parent block: " + parent.block);
         for(int block: blocks) {
 
             availableMoves = boardMovement.getMoves(parent.board, block);
@@ -47,7 +47,7 @@ public class Search {
                 HashMap.Entry pair = (HashMap.Entry) iterator.next();
                 if(pair.getValue().toString().equals("true")) {
 
-                    System.out.println("Block: " + block + ", " + "direction: " + pair.getKey().toString());
+//                    System.out.println("Block: " + block + ", " + "direction: " + pair.getKey().toString());
                     //We know the block and the possible move state so we add it to a child node
                     int[][] newBoard = boardMovement.getClone(parent.board);
 
@@ -71,7 +71,7 @@ public class Search {
             }
         }
 
-        System.out.println();
+//        System.out.println();
 
 
         return parent;

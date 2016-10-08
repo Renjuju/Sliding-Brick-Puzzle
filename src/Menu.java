@@ -48,33 +48,40 @@ public class Menu {
                     break;
 
                 case "4":
-
                     System.out.println("Breadth first search");
                     BreadthFirstSearch search = new BreadthFirstSearch();
+                    double start = System.currentTimeMillis();
                     search.bfs();
+                    double end = System.currentTimeMillis();
+                    System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
                     break;
 
                 case "5":
 
                     System.out.println("Depth first search");
                     DepthFirstSearch dfsSearch = new DepthFirstSearch();
+                    start = System.currentTimeMillis();
                     dfsSearch.dfs();
+                    end = System.currentTimeMillis();
+                    System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
                     break;
 
                 case "6":
-
-                    System.out.println("Depth limited search");
+                    System.out.println("Iterative deepening search");
+                    IterativeDeepeningSearch idsSearch = new IterativeDeepeningSearch();
+                    start = System.currentTimeMillis();
+                    idsSearch.ids();
+                    end = System.currentTimeMillis();
+                    System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
                     break;
 
                 default:
                     break;
-
             }
         }
-
     }
 
-    public void printInstructions() {
+    private void printInstructions() {
         System.out.println("Welcome to the Sliding Brick Puzzle Game");
         System.out.println("Please choose:");
         System.out.println("1: Random walks");
@@ -82,7 +89,7 @@ public class Menu {
         System.out.println("3: Random walks where user sets N steps");
         System.out.println("4: Breadth first search");
         System.out.println("5: Depth first search");
-        System.out.println("6: Depth limited search");
+        System.out.println("6: Iterative deepening search");
         System.out.println("7: Exit");
     }
 
