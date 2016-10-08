@@ -1,6 +1,3 @@
-package com.sliding;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class BoardMovement extends Board {

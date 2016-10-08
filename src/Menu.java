@@ -1,5 +1,3 @@
-package com.sliding;
-
 import java.util.Scanner;
 
 public class Menu {

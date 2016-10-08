@@ -1,5 +1,3 @@
-package com.sliding;
-
 import java.io.IOException;
 import java.util.*;
 

@@ -1,5 +1,3 @@
-package com.sliding;
-
 import java.util.ArrayList;
 
 public class Node {
