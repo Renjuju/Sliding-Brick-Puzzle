@@ -55,6 +55,9 @@ public class BreadthFirstSearch extends Search {
             }
         }
 
+        if(queue.isEmpty()) {
+            System.out.println("Empty queue");
+        }
         // Print the winning moves
         Stack<String> winningStack = new Stack<>();
         int completeBoard[][] = winner != null ? winner.board : new int[0][];

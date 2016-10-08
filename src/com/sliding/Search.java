@@ -10,12 +10,12 @@ public class Search {
 
     int[][] board;
     Node root;
-    HashMap<String, Node> visitedStates = new HashMap<>();
+    private HashMap<String, Node> visitedStates = new HashMap<>();
 
     public Search() {
         RetrieveBoard boardFetch = null;
         try {
-            boardFetch = new RetrieveBoard("levels/SBP-level3.txt");
+            boardFetch = new RetrieveBoard("levels/SBP-bricks-level6.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
