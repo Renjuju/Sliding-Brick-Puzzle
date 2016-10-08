@@ -57,6 +57,8 @@ public class Menu {
                 case "5":
 
                     System.out.println("Depth first search");
+                    DepthFirstSearch dfsSearch = new DepthFirstSearch();
+                    dfsSearch.dfs();
                     break;
 
                 case "6":

@@ -1,25 +1,27 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
- * Created by renju on 10/4/16.
+ * Created by renju on 10/7/16.
  */
-public class BreadthFirstSearch extends Search {
+public class DepthFirstSearch extends Search {
 
-    public void bfs() {
+    public void dfs() {
 
         Node node = expand(root);
 
         //add to list
-        Queue<Node> queue = new LinkedList<>();
+        Stack<Node> stack = new Stack<>();
 
         for (Node child : node.children) {
             Node cNode = expand(child);
-            queue.add(cNode);
+            stack.push(cNode);
         }
 
         Node winner = null;
-        while (!queue.isEmpty()) {
-            Node root = queue.remove();
+        while (!stack.isEmpty()) {
+            Node root = stack.pop();
             if (root.isWinner()) {
                 System.out.println("Winning board!");
                 winner = root;
@@ -37,7 +39,7 @@ public class BreadthFirstSearch extends Search {
                 }
 
                 if(sub != null) {
-                    queue.add(expand(kid));
+                    stack.push(expand(kid));
                 }
             }
 
@@ -46,8 +48,8 @@ public class BreadthFirstSearch extends Search {
             }
         }
 
-        if(queue.isEmpty()) {
-            System.out.println("Empty queue");
+        if(stack.isEmpty()) {
+            System.out.println("Empty stack");
         }
         // Print the winning moves
         Stack<String> winningStack = new Stack<>();
@@ -65,5 +67,4 @@ public class BreadthFirstSearch extends Search {
         System.out.println();
         Board.printBoard(completeBoard);
     }
-
 }
