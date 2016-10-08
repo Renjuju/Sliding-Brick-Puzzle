@@ -10,7 +10,7 @@ public class Node {
     int[][] board;
     int depth;
     String move;
-    boolean isWinner;
+    boolean isWinner = false;
 
     public Node(int[][] board) {
         this.depth = 0;
@@ -38,10 +38,6 @@ public class Node {
 
     public void addChild(Node child) {
         this.children.add(child);
-    }
-
-    public void setMoves(String move) {
-        this.move = move;
     }
 
     public void isWinner(boolean isWinner) {

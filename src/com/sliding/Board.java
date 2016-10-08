@@ -72,9 +72,9 @@ public class Board {
 
     // checks for the winner
     public boolean isWinner(int [][] board) {
-        for(int x = 0; x < board.length; x++) {
-            for(int i =0; i < board[x].length; i++) {
-                if(board[x][i] == -1) {
+        for (int[] aBoard : board) {
+            for (int anABoard : aBoard) {
+                if (anABoard == -1) {
                     return false;
                 }
             }
@@ -94,6 +94,33 @@ public class Board {
                 } else if (matrix[i][j] > nextIdx) {
                     swapIdx(nextIdx, matrix[i][j]);
                     nextIdx++;
+                }
+            }
+        }
+    }
+
+    public static int[][] normalizeState(int[][] board) {
+        int nextIdx = 3;
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if (board[i][j]==nextIdx) {
+                    nextIdx++;
+                } else if (board[i][j] > nextIdx) {
+                    swapIdx(nextIdx, board[i][j], board);
+                    nextIdx++;
+                }
+            }
+        }
+        return board;
+    }
+
+    private static void swapIdx(int idx1, int idx2, int[][] board) {
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == idx1) {
+                    board[i][j] = idx2;
+                } else if (board[i][j] == idx2) {
+                    board[i][j]=idx1;
                 }
             }
         }

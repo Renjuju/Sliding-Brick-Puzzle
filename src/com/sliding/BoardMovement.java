@@ -172,9 +172,19 @@ public class BoardMovement extends Board {
         if (block == MASTER_BLOCK) {
             for (int value : values) {
                 // if master block..checking for up
-                if (!(board[firstKey - 1][value] == EMPTY_SPACE || board[firstKey - 1][value] == WINNER_SPACE)) {
-                    up = false;
+                try {
+                    if (!(board[firstKey - 1][value] == EMPTY_SPACE || board[firstKey - 1][value] == WINNER_SPACE)) {
+                        up = false;
+                    }
+                } catch(Exception e) {
+                    System.out.println("First key : " + firstKey);
+                    System.out.println("Value: " + value );
+                    System.out.println("Block: " + block);
+                    Board.printBoard(board);
+                    e.printStackTrace();
+                    System.exit(0);
                 }
+
                 // checking for down
                 if (!(board[lastKey + 1][value] == EMPTY_SPACE || board[lastKey + 1][value] == WINNER_SPACE)) {
                     down = false;
