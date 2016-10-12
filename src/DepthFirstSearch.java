@@ -7,6 +7,10 @@ import java.util.Stack;
  */
 public class DepthFirstSearch extends Search {
 
+    public DepthFirstSearch(String file) {
+        super(file);
+    }
+
     public void dfs() {
 
         Node node = expand(root);

@@ -4,6 +4,11 @@ import java.util.Stack;
  * Created by renju on 10/7/16.
  */
 public class IterativeDeepeningSearch extends Search {
+
+    public IterativeDeepeningSearch(String file) {
+        super(file);
+    }
+
     public void ids() {
 
         Node node = expand(root);

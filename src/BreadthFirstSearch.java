@@ -5,6 +5,10 @@ import java.util.*;
  */
 public class BreadthFirstSearch extends Search {
 
+    public BreadthFirstSearch(String file) {
+        super(file);
+    }
+
     public void bfs() {
 
         Node node = expand(root);

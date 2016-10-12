@@ -10,10 +10,10 @@ public class Search {
     Node root;
     private HashMap<String, Node> visitedStates = new HashMap<>();
 
-    public Search() {
+    public Search(String file) {
         RetrieveBoard boardFetch = null;
         try {
-            boardFetch = new RetrieveBoard("levels/SBP-level0.txt");
+            boardFetch = new RetrieveBoard(file);
         } catch (IOException e) {
             e.printStackTrace();
         }

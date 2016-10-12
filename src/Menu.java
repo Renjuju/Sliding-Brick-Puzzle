@@ -49,7 +49,7 @@ public class Menu {
 
                 case "4":
                     System.out.println("Breadth first search");
-                    BreadthFirstSearch search = new BreadthFirstSearch();
+                    BreadthFirstSearch search = new BreadthFirstSearch(file);
                     double start = System.currentTimeMillis();
                     search.bfs();
                     double end = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class Menu {
                 case "5":
 
                     System.out.println("Depth first search");
-                    DepthFirstSearch dfsSearch = new DepthFirstSearch();
+                    DepthFirstSearch dfsSearch = new DepthFirstSearch(file);
                     start = System.currentTimeMillis();
                     dfsSearch.dfs();
                     end = System.currentTimeMillis();
@@ -68,7 +68,7 @@ public class Menu {
 
                 case "6":
                     System.out.println("Iterative deepening search");
-                    IterativeDeepeningSearch idsSearch = new IterativeDeepeningSearch();
+                    IterativeDeepeningSearch idsSearch = new IterativeDeepeningSearch(file);
                     start = System.currentTimeMillis();
                     idsSearch.ids();
                     end = System.currentTimeMillis();
