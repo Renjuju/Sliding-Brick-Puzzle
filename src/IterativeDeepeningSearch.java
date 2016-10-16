@@ -88,5 +88,6 @@ public class IterativeDeepeningSearch extends Search {
 
         System.out.println();
         Board.printBoard(completeBoard);
+        System.out.println("Nodes visited: " + visitedStateSize());
     }
 }

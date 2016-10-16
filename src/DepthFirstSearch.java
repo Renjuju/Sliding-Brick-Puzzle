@@ -70,5 +70,6 @@ public class DepthFirstSearch extends Search {
 
         System.out.println();
         Board.printBoard(completeBoard);
+        System.out.println("Nodes visited: " + visitedStateSize());
     }
 }

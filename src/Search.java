@@ -84,4 +84,8 @@ public class Search {
         }
         return sb.toString();
     }
+
+    public int visitedStateSize() {
+        return visitedStates.size();
+    }
 }
