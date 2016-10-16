@@ -11,7 +11,8 @@ public class DepthFirstSearch extends Search {
         super(file);
     }
 
-    public void dfs() {
+    //returns winning board
+    public int[][] dfs() {
 
         Node node = expand(root);
 
@@ -71,5 +72,7 @@ public class DepthFirstSearch extends Search {
         System.out.println();
         Board.printBoard(completeBoard);
         System.out.println("Nodes visited: " + visitedStateSize());
+
+        return completeBoard;
     }
 }

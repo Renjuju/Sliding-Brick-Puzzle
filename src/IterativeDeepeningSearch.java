@@ -9,7 +9,7 @@ public class IterativeDeepeningSearch extends Search {
         super(file);
     }
 
-    public void ids() {
+    public int[][] ids() {
 
         Node node = expand(root);
 
@@ -89,5 +89,7 @@ public class IterativeDeepeningSearch extends Search {
         System.out.println();
         Board.printBoard(completeBoard);
         System.out.println("Nodes visited: " + visitedStateSize());
+
+        return completeBoard;
     }
 }

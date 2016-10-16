@@ -9,7 +9,7 @@ public class BreadthFirstSearch extends Search {
         super(file);
     }
 
-    public void bfs() {
+    public int[][] bfs() {
 
         Node node = expand(root);
 
@@ -69,6 +69,8 @@ public class BreadthFirstSearch extends Search {
         System.out.println();
         Board.printBoard(completeBoard);
         System.out.println("Nodes visited: " + visitedStateSize());
+
+        return completeBoard;
     }
 
 }
