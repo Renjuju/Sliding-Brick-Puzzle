@@ -8,7 +8,7 @@ public class Search {
 
     int[][] board;
     Node root;
-    private HashMap<String, Node> visitedStates = new HashMap<>();
+    protected HashMap<String, Node> visitedStates = new HashMap<>();
 
     public Search(String file) {
         RetrieveBoard boardFetch = null;
@@ -76,6 +76,8 @@ public class Search {
 
         return parent;
     }
+
+
 
     public String board2Str(int board[][]) {
         StringBuilder sb = new StringBuilder();

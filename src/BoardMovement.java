@@ -91,7 +91,7 @@ public class BoardMovement extends Board {
     }
 
     // Uses rows as keys and columns as an ArrayList in a HashMap
-    private HashMap<Integer, ArrayList<Integer>> findBlock(int block, int board[][]) {
+    public HashMap<Integer, ArrayList<Integer>> findBlock(int block, int board[][]) {
         HashMap<Integer, ArrayList<Integer>> hashMap = new HashMap<>();
 
         for (int i = 0; i < board.length; i++) {

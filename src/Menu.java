@@ -14,7 +14,7 @@ public class Menu {
         Board board = new Board(file);
 
         String options = "0";
-        while(!options.equals("7")) {
+        while(!options.equals("8")) {
             printInstructions();
 
             if(board.isWinner(board.getBoard())) {
@@ -75,6 +75,15 @@ public class Menu {
                     System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
                     break;
 
+                case "7":
+                    System.out.println("A* search");
+                    AStarSearch aStar = new AStarSearch(file);
+                    start = System.currentTimeMillis();
+                    aStar.search();
+                    end = System.currentTimeMillis();
+                    System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
+                    break;
+
                 default:
                     break;
             }
@@ -90,7 +99,8 @@ public class Menu {
         System.out.println("4: Breadth first search");
         System.out.println("5: Depth first search");
         System.out.println("6: Iterative deepening search");
-        System.out.println("7: Exit");
+        System.out.println("7: A* search");
+        System.out.println("8: Exit");
     }
 
 }
