@@ -73,10 +73,6 @@ public class Search {
                 }
             }
         }
-
-//        System.out.println();
-
-
         return parent;
     }
 
