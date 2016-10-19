@@ -5,36 +5,35 @@ import java.util.*;
  */
 public class AStarSearch extends Search {
 
-    private RetrieveBoard boardGet;
-
     public AStarSearch(String fileName) {
         super(fileName);
     }
 
     public int[][] search() {
         int mDistance = manhattanDistanceOf(root.board);
-        ArrayList<Node> closedList = new ArrayList();
-        PriorityQueue<Node> openList = new PriorityQueue<>();
-//        openList.comparator().
 
-        System.out.println("Manhattan Distance " + mDistance);
+        Comparator<Node> comparator = (o1, o2) -> {
+            if(o1.getFScore() > o2.getFScore()) {
+                return 0;
+            }
+            return -1;
+        };
+
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(10, comparator);
+
         Node node = expand(root);
 
-        //find node to expand
-        for(Node n : openList) {
-            n.setFScore(manhattanDistanceOf(n.board) + 1);
-        }
+        node.setFScore(mDistance);
 //        //add to list
-        Stack<Node> stack = new Stack<>();
 
         for (Node child : node.children) {
             Node cNode = expand(child);
-            stack.push(cNode);
+            priorityQueue.add(cNode);
         }
 
         Node winner = null;
-        while (!stack.isEmpty()) {
-            Node root = stack.pop();
+        while (!priorityQueue.isEmpty()) {
+            Node root = priorityQueue.poll();
             if (root.isWinner()) {
                 System.out.println("Winning board!");
                 winner = root;
@@ -52,7 +51,7 @@ public class AStarSearch extends Search {
                 }
 
                 if(sub != null) {
-                    stack.push(expand(kid));
+                    priorityQueue.add(expand(kid));
                 }
             }
 
@@ -60,10 +59,8 @@ public class AStarSearch extends Search {
                 break;
             }
         }
-//        if(queue.isEmpty()) {
-//            System.out.println("Empty queue");
-//        }
-//        // Print the winning moves
+
+        //        // Print the winning moves
         Stack<String> winningStack = new Stack<>();
         int completeBoard[][] = winner != null ? winner.board : new int[0][];
         while (winner.depth > 0) {
@@ -83,6 +80,7 @@ public class AStarSearch extends Search {
         return completeBoard;
 //        return root.board;
     }
+
 
     private int manhattanDistanceOf(int[][] board) {
 
@@ -107,6 +105,7 @@ public class AStarSearch extends Search {
         return Math.abs(x2position-x1Position) + Math.abs(y2position-y1Position);
     }
 
+//    A* expansion
     public Node expand(Node parent) {
 
         if(boardMovement.isWinner(parent.board)) {
@@ -116,9 +115,8 @@ public class AStarSearch extends Search {
 
         ArrayList<Integer> blocks = boardMovement.getAllBlocks(parent.board);
 
-        HashMap<String, Boolean> availableMoves = new HashMap<>();
-//        System.out.println("Depth: " + parent.depth);
-//        System.out.println("Parent block: " + parent.block);
+        HashMap<String, Boolean> availableMoves;
+
         for(int block: blocks) {
 
             availableMoves = boardMovement.getMoves(parent.board, block);
@@ -147,29 +145,12 @@ public class AStarSearch extends Search {
                     child.setBlock(block);
                     child.setBoard(newBoard);
                     child.setMove(pair.getKey().toString());
-                    int cost = 1 + manhattanDistanceOf(newBoard);
+                    int cost = 1 + manhattanDistanceOf(newBoard) + parent.getFScore();
                     child.setFScore(cost);
                     parent.addChild(child);
                 }
             }
         }
-        if(blocks.size()  == 0) {
-            return parent;
-        }
-
-        System.out.println("Size of children " + parent.children.size() );
-        int cost = Integer.MAX_VALUE;
-        Node starChild = null;
-        for(Node child : parent.children) {
-            if(child.getFScore() < cost) {
-                cost = child.getFScore();
-                starChild = child;
-            }
-        }
-//        System.out.println();
-
-        parent.killChildren();
-        parent.children.add(starChild);
         return parent;
     }
 }

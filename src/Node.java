@@ -9,7 +9,7 @@ public class Node {
     int depth;
     String move;
     int gScore;
-    int fScore;
+    Integer fScore;
     boolean isWinner = false;
 
     public Node(int[][] board) {
@@ -17,12 +17,14 @@ public class Node {
         this.board = board;
         this.children = new ArrayList<>();
         this.gScore = 0;
+        this.fScore = 0;
     }
 
     public Node(Node parent) {
         this.parent = parent;
         this.depth = this.parent.depth + 1;
         this.children = new ArrayList<>();
+        this.fScore = parent.getFScore();
     }
 
     public void setMove(String move) {
@@ -53,11 +55,11 @@ public class Node {
         return this.gScore;
     }
 
-    public void setFScore(int fScore) {
+    public void setFScore(Integer fScore) {
         this.fScore = fScore;
     }
 
-    public int getFScore() {
+    public Integer getFScore() {
         return this.fScore;
     }
 
