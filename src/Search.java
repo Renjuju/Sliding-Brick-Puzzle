@@ -66,6 +66,9 @@ public class Search {
                     child.setBoard(newBoard);
                     child.setMove(pair.getKey().toString());
 
+                    int cost = 1 + manhattanDistanceOf(newBoard) + parent.getFScore();
+                    child.setFScore(cost);
+
                     parent.addChild(child);
                 }
             }
@@ -77,7 +80,27 @@ public class Search {
         return parent;
     }
 
+    protected int manhattanDistanceOf(int[][] board) {
 
+        int x1Position = 0, x2position = 0;
+        int y1Position = 0, y2position = 0;
+
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if(board[i][j] == -1 && x2position == 0 && y2position == 0) {
+                    x2position = i;
+                    y2position = j;
+                }
+
+                if(board[i][j] == 2 && x1Position == 0 && y1Position == 0) {
+                    x1Position = i;
+                    y1Position = j;
+                }
+            }
+        }
+        // Calculating the manhattan distance
+        return Math.abs(x2position-x1Position) + Math.abs(y2position-y1Position);
+    }
 
     public String board2Str(int board[][]) {
         StringBuilder sb = new StringBuilder();
