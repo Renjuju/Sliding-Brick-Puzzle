@@ -14,7 +14,7 @@ public class Menu {
         Board board = new Board(file);
 
         String options = "0";
-        while(!options.equals("8")) {
+        while(!options.equals("9")) {
             printInstructions();
 
             if(board.isWinner(board.getBoard())) {
@@ -76,7 +76,7 @@ public class Menu {
                     break;
 
                 case "7":
-                    System.out.println("A* search");
+                    System.out.println("A* search [Manhattan Distance]");
                     AStarSearch aStar = new AStarSearch(file);
                     start = System.currentTimeMillis();
                     aStar.search();
@@ -99,8 +99,9 @@ public class Menu {
         System.out.println("4: Breadth first search");
         System.out.println("5: Depth first search");
         System.out.println("6: Iterative deepening search");
-        System.out.println("7: A* search");
-        System.out.println("8: Exit");
+        System.out.println("7: A* search using Manhattan Distance Heuristic");
+        System.out.println("8: A* search using [Something] Heuristic");
+        System.out.println("9: Exit");
     }
 
 }
