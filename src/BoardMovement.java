@@ -17,7 +17,6 @@ public class BoardMovement extends Board {
         int[] values = toArray(hashMap, key); //columns
         Iterator iterator = hashMap.entrySet().iterator();
 
-
         switch (movement) {
             case "up":
                 if(!availableMoves.get("up")) {
