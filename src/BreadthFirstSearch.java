@@ -1,8 +1,5 @@
 import java.util.*;
 
-/**
- * Created by renju on 10/4/16.
- */
 public class BreadthFirstSearch extends Search {
 
     public BreadthFirstSearch(String file) {

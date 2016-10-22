@@ -2,13 +2,17 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by renju on 10/7/16.
+ * renju, 10/7/16.
  */
 public class Search {
 
     int[][] board;
     Node root;
-    protected HashMap<String, Node> visitedStates = new HashMap<>();
+    private HashMap<String, Node> visitedStates = new HashMap<>();
+
+    private int x1Position = 0, x2position = 0;
+    private int y1Position = 0, y2position = 0;
+    private String heuristic;
 
     public Search(String file) {
         RetrieveBoard boardFetch = null;
@@ -22,7 +26,20 @@ public class Search {
         root = new Node(board);
     }
 
-    BoardMovement boardMovement = new BoardMovement();
+    public Search(String file, String heuristic) {
+        RetrieveBoard boardFetch = null;
+        try {
+            boardFetch = new RetrieveBoard(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        board = boardFetch.getBoard();
+        root = new Node(board);
+        this.heuristic = heuristic;
+    }
+
+    private BoardMovement boardMovement = new BoardMovement();
 
     public Node expand(Node parent) {
 
@@ -34,25 +51,19 @@ public class Search {
         ArrayList<Integer> blocks = boardMovement.getAllBlocks(parent.board);
 
         HashMap<String, Boolean> availableMoves = new HashMap<>();
-//        System.out.println("Depth: " + parent.depth);
-//        System.out.println("Parent block: " + parent.block);
         for(int block: blocks) {
 
             availableMoves = boardMovement.getMoves(parent.board, block);
-            //iterate through available moves, add to parent arrayList
 
-            Iterator iterator = availableMoves.entrySet().iterator();
+            for (Object o : availableMoves.entrySet()) {
+                HashMap.Entry pair = (HashMap.Entry) o;
+                if (pair.getValue().toString().equals("true")) {
 
-            while(iterator.hasNext()) {
-                HashMap.Entry pair = (HashMap.Entry) iterator.next();
-                if(pair.getValue().toString().equals("true")) {
-
-//                    System.out.println("Block: " + block + ", " + "direction: " + pair.getKey().toString());
                     //We know the block and the possible move state so we add it to a child node
                     int[][] newBoard = boardMovement.getClone(parent.board);
 
                     boardMovement.move(block, pair.getKey().toString(), newBoard);
-                    if(visitedStates.containsKey(board2Str(Board.normalizeState(boardMovement.getClone(newBoard))))) {
+                    if (visitedStates.containsKey(board2Str(Board.normalizeState(boardMovement.getClone(newBoard))))) {
                         break;
                     } else {
                         visitedStates.put(board2Str(Board.normalizeState(boardMovement.getClone(newBoard))), parent);
@@ -66,7 +77,16 @@ public class Search {
                     child.setBoard(newBoard);
                     child.setMove(pair.getKey().toString());
 
-                    int cost = 1 + manhattanDistanceOf(newBoard) + parent.getFScore();
+                    int heuristic = 0;
+
+
+                    if(this.heuristic.equals("manhattan")) {
+                        heuristic = manhattanDistanceOf(newBoard);
+                    } else if(this.heuristic.equals("euclidean")){
+                        heuristic = euclideanDistanceOf(newBoard);
+                    }
+
+                    int cost = parent.depth + 1 + heuristic + parent.getFScore();
                     child.setFScore(cost);
 
                     parent.addChild(child);
@@ -76,11 +96,7 @@ public class Search {
         return parent;
     }
 
-    protected int manhattanDistanceOf(int[][] board) {
-
-        int x1Position = 0, x2position = 0;
-        int y1Position = 0, y2position = 0;
-
+    protected void setGoalPositions(int[][] board) {
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 if(board[i][j] == -1 && x2position == 0 && y2position == 0) {
@@ -94,8 +110,18 @@ public class Search {
                 }
             }
         }
+    }
+
+    protected int manhattanDistanceOf(int[][] board) {
+        setGoalPositions(board);
         // Calculating the manhattan distance
         return Math.abs(x2position-x1Position) + Math.abs(y2position-y1Position);
+    }
+
+    protected int euclideanDistanceOf(int[][] board) {
+        setGoalPositions(board);
+        // Calculating the euclidean distance heuristic
+        return (int) Math.sqrt(Math.pow(2, Math.abs(x2position-x1Position)) + Math.pow(2 ,Math.abs(y2position-y1Position)));
     }
 
     public String board2Str(int board[][]) {

@@ -5,12 +5,22 @@ import java.util.*;
  */
 public class AStarSearch extends Search {
 
-    public AStarSearch(String fileName) {
-        super(fileName);
+    String heuristic;
+    public AStarSearch(String fileName, String heuristic) {
+        super(fileName, heuristic);
+        this.heuristic = heuristic;
     }
 
     public int[][] search() {
-        int mDistance = manhattanDistanceOf(root.board);
+
+        int distance = 0;
+
+        System.out.println(heuristic);
+        if(heuristic.equals("manhattan")) {
+            distance = manhattanDistanceOf(root.board);
+        } else {
+            distance = euclideanDistanceOf(root.board);
+        }
 
         Comparator<Node> comparator = (o1, o2) -> {
             if(o1.getFScore() > o2.getFScore()) {
@@ -23,7 +33,7 @@ public class AStarSearch extends Search {
 
         Node node = expand(root);
 
-        node.setFScore(1 + mDistance);
+        node.setFScore(1 + distance);
 
         for (Node child : node.children) {
             Node cNode = expand(child);

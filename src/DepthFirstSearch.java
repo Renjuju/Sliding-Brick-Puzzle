@@ -2,9 +2,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-/**
- * Created by renju on 10/7/16.
- */
 public class DepthFirstSearch extends Search {
 
     public DepthFirstSearch(String file) {

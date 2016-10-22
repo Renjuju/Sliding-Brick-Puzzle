@@ -77,13 +77,20 @@ public class Menu {
 
                 case "7":
                     System.out.println("A* search [Manhattan Distance]");
-                    AStarSearch aStar = new AStarSearch(file);
+                    AStarSearch aStar = new AStarSearch(file, "manhattan");
                     start = System.currentTimeMillis();
                     aStar.search();
                     end = System.currentTimeMillis();
                     System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
                     break;
-
+                case "8":
+                    System.out.println("A* search [Euclidean Distance]");
+                    aStar = new AStarSearch(file, "euclidean");
+                    start = System.currentTimeMillis();
+                    aStar.search();
+                    end = System.currentTimeMillis();
+                    System.out.println("Took : " + ((end - start) / 1000 + " seconds"));
+                    break;
                 default:
                     break;
             }
@@ -100,7 +107,7 @@ public class Menu {
         System.out.println("5: Depth first search");
         System.out.println("6: Iterative deepening search");
         System.out.println("7: A* search using Manhattan Distance Heuristic");
-        System.out.println("8: A* search using [Something] Heuristic");
+        System.out.println("8: A* search using Euclidean Heuristic");
         System.out.println("9: Exit");
     }
 
