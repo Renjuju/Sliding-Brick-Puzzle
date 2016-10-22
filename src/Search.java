@@ -80,9 +80,9 @@ public class Search {
                     int heuristic = 0;
 
 
-                    if(this.heuristic.equals("manhattan")) {
+                    if(this.heuristic != null && this.heuristic.equals("manhattan")) {
                         heuristic = manhattanDistanceOf(newBoard);
-                    } else if(this.heuristic.equals("euclidean")){
+                    } else if(this.heuristic != null && this.heuristic.equals("euclidean")){
                         heuristic = euclideanDistanceOf(newBoard);
                     }
 
